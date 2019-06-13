@@ -1,0 +1,12 @@
+server:
+  port: 9000
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: kafka-loggers
+      auto-offset-reset: earliest
+      
+kafka:
+  topic-name: advice-topic
+  messages-per-request: 10
