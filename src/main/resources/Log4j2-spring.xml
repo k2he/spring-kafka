@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" name="spring-boot-kafka-log" packages="com.demo.springkafka">
+	<Properties>
+		<Property name="LOG_PATTERN">
+			[%d{yyyy-MM-dd HH:mm:ss.SSS}] %5p ${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex
+		</Property>
+		<Property name="BASE_PATH">logs</Property>
+	</Properties>
+
+	<Appenders>
+		<Kafka name="Kafka" topic="log-topic">
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+			<Property name="bootstrap.servers">localhost:9092</Property>
+		</Kafka>
+		<Async name="Async">
+			<AppenderRef ref="Kafka" />
+		</Async>
+
+		<Console name="ConsoleAppender" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+
+		<RollingFile name="FileAppender" fileName="${BASE_PATH}/application.log"
+			filePattern="${BASE_PATH}/application-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<Pattern>${LOG_PATTERN}</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		<!-- <Logger name="com.example.logging" level="debug" additivity="false"> 
+			<AppenderRef ref="ConsoleAppender"/> <AppenderRef ref="FileAppender" /> </Logger> -->
+
+		<AsyncLogger level="debug" additivity="false">
+			<AppenderRef ref="ConsoleAppender" />
+			<AppenderRef ref="FileAppender" />
+		</AsyncLogger>
+
+		<Root level="info">
+			<AppenderRef ref="Kafka" />
+			<AppenderRef ref="ConsoleAppender" />
+			<AppenderRef ref="FileAppender" />
+		</Root>
+		<Logger name="org.apache.kafka" level="WARN" />
+	</Loggers>
+
+</Configuration>

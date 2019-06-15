@@ -8,5 +8,5 @@ spring:
       auto-offset-reset: earliest
       
 kafka:
-  topic-name: advice-topic
+  topic-name: log-topic
   messages-per-request: 10
