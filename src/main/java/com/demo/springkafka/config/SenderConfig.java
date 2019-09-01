@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.support.serializer.JsonSerializer;
+import com.demo.springkafka.model.Message;
 
 @Configuration
 public class SenderConfig {
@@ -19,20 +21,20 @@ public class SenderConfig {
 
   @Bean
   public Map<String, Object> producerConfigs() {
-    Map<String, Object> props = new HashMap<>();
-    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers); // specifies a list of host/port pairs to use for establishing the initial connection to the Kafka cluster.
-    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class); // serializer class for key
-    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class); // serializer class for value
-    return props;
+      Map<String, Object> props = new HashMap<>();
+      props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+      props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+      props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+      return props;
   }
 
   @Bean
-  public ProducerFactory<String, String> producerFactory() {
-    return new DefaultKafkaProducerFactory<>(producerConfigs());
+  public ProducerFactory<String, Message> producerFactory() {
+      return new DefaultKafkaProducerFactory<>(producerConfigs());
   }
 
   @Bean
-  public KafkaTemplate<String, String> kafkaTemplate() {
-    return new KafkaTemplate<>(producerFactory());
+  public KafkaTemplate<String, Message> kafkaTemplate() {
+      return new KafkaTemplate<>(producerFactory());
   }
 }
