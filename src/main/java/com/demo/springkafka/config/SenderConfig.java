@@ -12,6 +12,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import com.demo.springkafka.serializer.AvroSerializer;
 
+import com.demo.springkafka.Order;
 
 @Configuration
 public class SenderConfig {

@@ -1,7 +1,7 @@
 package com.demo.springkafka.service;
 
-import com.demo.springkafka.model.Message;
+import com.demo.springkafka.Order;
 
 public interface ConsumerService {
-  public void consume(Message message);
+  public void consume(Order order);
 }

@@ -13,6 +13,7 @@ import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
+import com.demo.springkafka.serializer.AvroDeserializer;
 import com.demo.springkafka.serializer.AvroSerializer;
 
 import com.demo.springkafka.Order;
@@ -39,7 +40,7 @@ public class ReceiverConfig {
     Map<String, Object> props = new HashMap<>();
     props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
     props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-    props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, AvroSerializer.class);
+    props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, AvroDeserializer.class);
     props.put(ConsumerConfig.GROUP_ID_CONFIG, group_id);
     /*
      * earliest: automatically reset the offset to the earliest offset latest: automatically reset
@@ -52,14 +53,14 @@ public class ReceiverConfig {
   }
 
   @Bean
-  public ConsumerFactory<String, Message> consumerFactory() {
+  public ConsumerFactory<String, Order> consumerFactory() {
     return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(),
-        new JsonDeserializer<>(Message.class));
+        new AvroDeserializer<>(Order.class));
   }
 
   @Bean
-  public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Message>> kafkaListenerContainerFactory() {
-    ConcurrentKafkaListenerContainerFactory<String, Message> factory =
+  public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Order>> kafkaListenerContainerFactory() {
+    ConcurrentKafkaListenerContainerFactory<String, Order> factory =
         new ConcurrentKafkaListenerContainerFactory<>();
     factory.setConsumerFactory(consumerFactory());
     return factory;

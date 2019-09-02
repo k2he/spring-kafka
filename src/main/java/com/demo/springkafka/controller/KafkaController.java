@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.demo.springkafka.model.Message;
+import com.demo.springkafka.Order;
 import com.demo.springkafka.service.ProducerService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +23,8 @@ public class KafkaController {
 
   // Eg: http://localhost:9000/kafka/publish?message=test
   @PostMapping(value = "/publish")
-  public ResponseEntity<String> sendMessageToKafkaTopic(@RequestBody Message message) {
-    this.producerService.sendMessage(message);
+  public ResponseEntity<String> sendMessageToKafkaTopic(@RequestBody Order order) {
+    this.producerService.sendMessage(order);
     return new ResponseEntity<>("Message published successfully!", HttpStatus.OK);
   }
 }
