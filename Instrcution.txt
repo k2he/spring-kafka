@@ -20,7 +20,12 @@ kafka-console-producer --broker-list localhost:9092 --topic test
 kafka-console-consumer --bootstrap-server localhost:9092 --topic test --from-beginning
 
 
-
+## Notes 
+Eclipse IDE may not recognize source code under target/generated/avro, so we need
+1) Right click on Project -> Build Path -> Config Build Path -> Libraries
+2) Choose Add Class Folder -> Choose target/generated folder
+3) Right click on SpringKafkaApplication.java -> Run Configuration -> 
+   Class Path -> User Entry -> Advanced -> Add Folder -> Choose the target folder
 
 
 
