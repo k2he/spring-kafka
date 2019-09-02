@@ -13,8 +13,9 @@ import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
-import org.springframework.kafka.support.serializer.JsonDeserializer;
-import com.demo.springkafka.model.Message;
+import com.demo.springkafka.serializer.AvroSerializer;
+
+import com.demo.springkafka.Order;
 
 /*
  * It's important that we use the same type of key/value deserializers which we used in the
@@ -38,7 +39,7 @@ public class ReceiverConfig {
     Map<String, Object> props = new HashMap<>();
     props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
     props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-    props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+    props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, AvroSerializer.class);
     props.put(ConsumerConfig.GROUP_ID_CONFIG, group_id);
     /*
      * earliest: automatically reset the offset to the earliest offset latest: automatically reset

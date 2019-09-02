@@ -2,51 +2,41 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.sunilvb</groupId>
+	<artifactId>SpringKafkaRegistry</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>spring-kafka-registry</name>
+	<description>Demo project for Spring Boot</description>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.5.RELEASE</version>
+		<version>2.0.4.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.demo</groupId>
-	<artifactId>spring-kafka</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-kafka</name>
-	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<spring-kafka.version>2.2.8.RELEASE</spring-kafka.version>
+		<java.version>1.8</java.version>
+		<spring-kafka.version>2.1.8.RELEASE</spring-kafka.version>
 		<avro.version>1.8.2</avro.version>
 		<confluent.version>5.0.0</confluent.version>
 	</properties>
-
 	<repositories>
 		<repository>
 			<id>confluent</id>
 			<url>http://packages.confluent.io/maven/</url>
 		</repository>
 	</repositories>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>2.1.4.RELEASE</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
 		</dependency>
 
 		<dependency>
@@ -61,26 +51,24 @@
 			<artifactId>spring-kafka</artifactId>
 			<version>${spring-kafka.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka-test</artifactId>
 			<version>${spring-kafka.version}</version>
 			<scope>test</scope>
 		</dependency>
-
 		<!-- avro -->
 		<dependency>
 			<groupId>org.apache.avro</groupId>
 			<artifactId>avro</artifactId>
 			<version>${avro.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>io.confluent</groupId>
 			<artifactId>kafka-avro-serializer</artifactId>
 			<version>${confluent.version}</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -89,7 +77,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.avro</groupId>
 				<artifactId>avro-maven-plugin</artifactId>
@@ -109,5 +96,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
